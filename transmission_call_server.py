@@ -6,9 +6,9 @@ import tranmission_server
 import transmission_call_pb2 as pb2
 import transmission_call_pb2_grpc as pb2_grpc
 
-_host = "192.168.1.16"
-_port = 9091
-
+transmission_host = "192.168.1.16"
+transmission_port = 9091
+_port = 5051
 
 class TransmissionCallServicer(pb2_grpc.TransmissionCallServicer):
     """
@@ -16,7 +16,7 @@ class TransmissionCallServicer(pb2_grpc.TransmissionCallServicer):
     """
 
     def __init__(self):
-        self.client = tranmission_server.create_client(_host, _port)
+        self.client = tranmission_server.create_client(transmission_host, transmission_port)
 
     def GetTorrent(self, request, context):
         _torrent_id = request.torrent_id
@@ -53,7 +53,7 @@ def server():
     pb2_grpc.add_TransmissionCallServicer_to_server(
         TransmissionCallServicer(), server
     )
-    server.add_insecure_port('[::]:5051')
+    server.add_insecure_port('[::]:%d' % _port)
     server.start()
     server.wait_for_termination()
 
