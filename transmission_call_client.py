@@ -3,6 +3,8 @@ import grpc
 import transmission_call_pb2 as pb2
 import transmission_call_pb2_grpc as pb2_grpc
 
+_host = "192.168.1.6"
+_port = 5051
 
 def make_TorrentID(torrent_id):
     """make TorrentID object"""
@@ -32,7 +34,7 @@ def transmission_send_torrent(stub, torrent_url):
 
 def run():
     """run the stub"""
-    with grpc.insecure_channel('localhost:5051') as channel:
+    with grpc.insecure_channel('%s:%d' % (_host, _port)) as channel:
         stub = pb2_grpc.TransmissionCallStub(channel)
 
         print("---- get torrent ----")
