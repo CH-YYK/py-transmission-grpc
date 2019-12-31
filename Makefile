@@ -2,7 +2,7 @@ install:
 	pip3 install -r requirements.txt
 
 build: docker/Dockerfile
-	docker build --no-cache -t transmission_grpc:latest ./
+	docker build --no-cache -f docker/Dockerfile -t transmission_grpc:latest ./
 
 run: transmission_call_server.py
 	docker run -p 5051:5051 transmission_grpc:latest
