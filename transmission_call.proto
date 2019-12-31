@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+service TransmissionCall {
+    rpc GetTorrent(TorrentId) returns (getTorrent) {}
+    rpc SendTorrent(TorrentUrl) returns (sendTorrent) {}
+}
+
+// Request message to server
+message TorrentId {
+    int32 torrent_id = 1;
+}
+
+message TorrentUrl {
+    string url = 1;
+}
+
+// Response message from server 
+message Torrent {
+    // The name of torrent
+    string torrent_name = 1;
+
+    // The corresponding Id of the torrent
+    int32 torrent_id = 2;
+}
+
+message getTorrent {
+    Torrent torrent = 1;
+        
+    // The date when the torrent added
+    string date_added = 2;
+
+    // The current progress of Torrent
+    float torrent_progress = 3;
+
+    // The status of Torrent
+    string torrent_status = 4;
+}
+
+message sendTorrent {
+    Torrent torrent = 1;
+}
