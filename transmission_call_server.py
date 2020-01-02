@@ -6,7 +6,7 @@ import tranmission_server
 import transmission_call_pb2 as pb2
 import transmission_call_pb2_grpc as pb2_grpc
 
-transmission_host = "192.168.1.16"
+transmission_host = "localhost"
 transmission_port = 9091
 _port = 5051
 
