@@ -60,7 +60,8 @@ def run():
         transmission_get_torrent(stub, 3)
 
         print("---- send torrent ----")
-        transmission_send_torrent(stub, _torrent_url)
+        if _torrent_url:
+            transmission_send_torrent(stub, _torrent_url)
 
 if __name__ == '__main__':
     cmdlines = make_parser().parse_args()
