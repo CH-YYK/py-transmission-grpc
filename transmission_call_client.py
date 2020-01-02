@@ -4,9 +4,9 @@ import grpc
 import transmission_call_pb2 as pb2
 import transmission_call_pb2_grpc as pb2_grpc
 
-_host = "192.168.1.6"
-_port = 5051
-_torrent_url = ""
+_host = "192.168.1.16"
+_port = 5071
+_torrent_url = "http://releases.ubuntu.com/19.10/ubuntu-19.10-desktop-amd64.iso.torrent?_ga=2.68919384.854729028.1577940666-1012110682.1574224568"
 
 
 def make_parser():
@@ -39,7 +39,7 @@ def transmission_get_torrent(stub, torrent_id):
     response = stub.GetTorrent(
         make_TorrentID(torrent_id)
     )
-    print(response)
+    return response
 
 
 def transmission_send_torrent(stub: pb2_grpc.TransmissionCallStub, torrent_url: str):
@@ -47,7 +47,7 @@ def transmission_send_torrent(stub: pb2_grpc.TransmissionCallStub, torrent_url: 
     response = stub.SendTorrent(
         make_TorrentUrl(torrent_url)
     )
-    print(response)
+    return response
 
 
 def run():
@@ -57,11 +57,13 @@ def run():
         stub = pb2_grpc.TransmissionCallStub(channel)
 
         print("---- get torrent ----")
-        transmission_get_torrent(stub, 3)
+        response = transmission_get_torrent(stub, 3)
+        print(response.torrent.torrent_id)
 
         print("---- send torrent ----")
-        if _torrent_url:
-            transmission_send_torrent(stub, _torrent_url)
+        response = transmission_send_torrent(stub, _torrent_url)
+        print(response.torrent.torrent_id)
+
 
 if __name__ == '__main__':
     cmdlines = make_parser().parse_args()
@@ -72,5 +74,6 @@ if __name__ == '__main__':
         _port = cmdlines.port
     if cmdlines.torrent_url:
         _torrent_url = cmdlines.torrent_url
+        print(_torrent_url)
 
     run()

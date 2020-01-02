@@ -42,7 +42,7 @@ class TransmissionCallServicer(pb2_grpc.TransmissionCallServicer):
         )
 
     def SendTorrent(self, request, context):
-        _torrent_url = request.url
+        _torrent_url = request.torrent_url
         _torrent = self.client.add_torrent(_torrent_url)
 
         torrent = pb2.Torrent(
@@ -56,7 +56,7 @@ class TransmissionCallServicer(pb2_grpc.TransmissionCallServicer):
 
 
 def server():
-    print("---- start server ----")
+    print("---- starting server at %s:%d ----" % ('localhost', _port))
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     pb2_grpc.add_TransmissionCallServicer_to_server(
         TransmissionCallServicer(), server
