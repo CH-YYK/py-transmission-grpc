@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x17transmission_call.proto\"\x1f\n\tTorrentId\x12\x12\n\ntorrent_id\x18\x01 \x01(\x05\"\x19\n\nTorrentUrl\x12\x0b\n\x03url\x18\x01 \x01(\t\"3\n\x07Torrent\x12\x14\n\x0ctorrent_name\x18\x01 \x01(\t\x12\x12\n\ntorrent_id\x18\x02 \x01(\x05\"m\n\ngetTorrent\x12\x19\n\x07torrent\x18\x01 \x01(\x0b\x32\x08.Torrent\x12\x12\n\ndate_added\x18\x02 \x01(\t\x12\x18\n\x10torrent_progress\x18\x03 \x01(\x02\x12\x16\n\x0etorrent_status\x18\x04 \x01(\t\"(\n\x0bsendTorrent\x12\x19\n\x07torrent\x18\x01 \x01(\x0b\x32\x08.Torrent2g\n\x10TransmissionCall\x12\'\n\nGetTorrent\x12\n.TorrentId\x1a\x0b.getTorrent\"\x00\x12*\n\x0bSendTorrent\x12\x0b.TorrentUrl\x1a\x0c.sendTorrent\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x17transmission_call.proto\"\x1f\n\tTorrentId\x12\x12\n\ntorrent_id\x18\x01 \x01(\x05\"!\n\nTorrentUrl\x12\x13\n\x0btorrent_url\x18\x01 \x01(\t\"3\n\x07Torrent\x12\x14\n\x0ctorrent_name\x18\x01 \x01(\t\x12\x12\n\ntorrent_id\x18\x02 \x01(\x05\"m\n\ngetTorrent\x12\x19\n\x07torrent\x18\x01 \x01(\x0b\x32\x08.Torrent\x12\x12\n\ndate_added\x18\x02 \x01(\t\x12\x18\n\x10torrent_progress\x18\x03 \x01(\x02\x12\x16\n\x0etorrent_status\x18\x04 \x01(\t\"(\n\x0bsendTorrent\x12\x19\n\x07torrent\x18\x01 \x01(\x0b\x32\x08.Torrent2g\n\x10TransmissionCall\x12\'\n\nGetTorrent\x12\n.TorrentId\x1a\x0b.getTorrent\"\x00\x12*\n\x0bSendTorrent\x12\x0b.TorrentUrl\x1a\x0c.sendTorrent\"\x00\x62\x06proto3')
 )
 
 
@@ -65,7 +65,7 @@ _TORRENTURL = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='url', full_name='TorrentUrl.url', index=0,
+      name='torrent_url', full_name='TorrentUrl.torrent_url', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -84,7 +84,7 @@ _TORRENTURL = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=60,
-  serialized_end=85,
+  serialized_end=93,
 )
 
 
@@ -121,8 +121,8 @@ _TORRENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=87,
-  serialized_end=138,
+  serialized_start=95,
+  serialized_end=146,
 )
 
 
@@ -173,8 +173,8 @@ _GETTORRENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=140,
-  serialized_end=249,
+  serialized_start=148,
+  serialized_end=257,
 )
 
 
@@ -204,8 +204,8 @@ _SENDTORRENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=251,
-  serialized_end=291,
+  serialized_start=259,
+  serialized_end=299,
 )
 
 _GETTORRENT.fields_by_name['torrent'].message_type = _TORRENT
@@ -260,8 +260,8 @@ _TRANSMISSIONCALL = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=293,
-  serialized_end=396,
+  serialized_start=301,
+  serialized_end=404,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetTorrent',
