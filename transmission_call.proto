@@ -11,7 +11,7 @@ message TorrentId {
 }
 
 message TorrentUrl {
-    string url = 1;
+    string torrent_url = 1;
 }
 
 // Response message from server 
