@@ -6,7 +6,7 @@ import tranmission_server
 import transmission_call_pb2 as pb2
 import transmission_call_pb2_grpc as pb2_grpc
 
-transmission_host = "127.0.0.1"
+transmission_host = "192.168.1.16"
 transmission_port = 9091
 _port = 5051
 
@@ -56,12 +56,14 @@ class TransmissionCallServicer(pb2_grpc.TransmissionCallServicer):
 
 
 def server():
+    print("---- start server ----")
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     pb2_grpc.add_TransmissionCallServicer_to_server(
         TransmissionCallServicer(), server
     )
     server.add_insecure_port('[::]:%d' % _port)
     server.start()
+    print("---- server started ----")
     server.wait_for_termination()
 
 if __name__ == '__main__':
