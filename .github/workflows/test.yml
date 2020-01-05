@@ -1,0 +1,19 @@
+on:
+  push:
+    branches:
+      - dev
+
+name: Test before the push
+
+jobs:
+  test:
+    name: grpc testing
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Test client
+        run:
+          echo "running testing"
