@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x17transmission_call.proto\"\x1f\n\tTorrentId\x12\x12\n\ntorrent_id\x18\x01 \x01(\x05\"!\n\nTorrentUrl\x12\x13\n\x0btorrent_url\x18\x01 \x01(\t\"3\n\x07Torrent\x12\x14\n\x0ctorrent_name\x18\x01 \x01(\t\x12\x12\n\ntorrent_id\x18\x02 \x01(\x05\"m\n\ngetTorrent\x12\x19\n\x07torrent\x18\x01 \x01(\x0b\x32\x08.Torrent\x12\x12\n\ndate_added\x18\x02 \x01(\t\x12\x18\n\x10torrent_progress\x18\x03 \x01(\x02\x12\x16\n\x0etorrent_status\x18\x04 \x01(\t\"(\n\x0bsendTorrent\x12\x19\n\x07torrent\x18\x01 \x01(\x0b\x32\x08.Torrent2g\n\x10TransmissionCall\x12\'\n\nGetTorrent\x12\n.TorrentId\x1a\x0b.getTorrent\"\x00\x12*\n\x0bSendTorrent\x12\x0b.TorrentUrl\x1a\x0c.sendTorrent\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x17transmission_call.proto\"\x1f\n\tTorrentId\x12\x12\n\ntorrent_id\x18\x01 \x01(\x05\"!\n\nTorrentUrl\x12\x13\n\x0btorrent_url\x18\x01 \x01(\t\"3\n\x07Torrent\x12\x14\n\x0ctorrent_name\x18\x01 \x01(\t\x12\x12\n\ntorrent_id\x18\x02 \x01(\x05\"m\n\ngetTorrent\x12\x19\n\x07torrent\x18\x01 \x01(\x0b\x32\x08.Torrent\x12\x12\n\ndate_added\x18\x02 \x01(\t\x12\x18\n\x10torrent_progress\x18\x03 \x01(\x02\x12\x16\n\x0etorrent_status\x18\x04 \x01(\t\"(\n\x0bsendTorrent\x12\x19\n\x07torrent\x18\x01 \x01(\x0b\x32\x08.Torrent\"*\n\rremoveTorrent\x12\x19\n\x07torrent\x18\x01 \x01(\x0b\x32\x08.Torrent2\xfb\x01\n\x10TransmissionCall\x12\'\n\nGetTorrent\x12\n.TorrentId\x1a\x0b.getTorrent\"\x00\x12*\n\x0bSendTorrent\x12\x0b.TorrentUrl\x1a\x0c.sendTorrent\"\x00\x12-\n\rRemoveTorrent\x12\n.TorrentId\x1a\x0e.removeTorrent\"\x00\x12/\n\x0eGetTorrentList\x12\n.TorrentId\x1a\x0b.getTorrent\"\x00(\x01\x30\x01\x12\x32\n\x0fSendTorrentList\x12\x0b.TorrentUrl\x1a\x0c.sendTorrent\"\x00(\x01\x30\x01\x62\x06proto3')
 )
 
 
@@ -208,13 +208,46 @@ _SENDTORRENT = _descriptor.Descriptor(
   serialized_end=299,
 )
 
+
+_REMOVETORRENT = _descriptor.Descriptor(
+  name='removeTorrent',
+  full_name='removeTorrent',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='torrent', full_name='removeTorrent.torrent', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=301,
+  serialized_end=343,
+)
+
 _GETTORRENT.fields_by_name['torrent'].message_type = _TORRENT
 _SENDTORRENT.fields_by_name['torrent'].message_type = _TORRENT
+_REMOVETORRENT.fields_by_name['torrent'].message_type = _TORRENT
 DESCRIPTOR.message_types_by_name['TorrentId'] = _TORRENTID
 DESCRIPTOR.message_types_by_name['TorrentUrl'] = _TORRENTURL
 DESCRIPTOR.message_types_by_name['Torrent'] = _TORRENT
 DESCRIPTOR.message_types_by_name['getTorrent'] = _GETTORRENT
 DESCRIPTOR.message_types_by_name['sendTorrent'] = _SENDTORRENT
+DESCRIPTOR.message_types_by_name['removeTorrent'] = _REMOVETORRENT
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 TorrentId = _reflection.GeneratedProtocolMessageType('TorrentId', (_message.Message,), {
@@ -252,6 +285,13 @@ sendTorrent = _reflection.GeneratedProtocolMessageType('sendTorrent', (_message.
   })
 _sym_db.RegisterMessage(sendTorrent)
 
+removeTorrent = _reflection.GeneratedProtocolMessageType('removeTorrent', (_message.Message,), {
+  'DESCRIPTOR' : _REMOVETORRENT,
+  '__module__' : 'transmission_call_pb2'
+  # @@protoc_insertion_point(class_scope:removeTorrent)
+  })
+_sym_db.RegisterMessage(removeTorrent)
+
 
 
 _TRANSMISSIONCALL = _descriptor.ServiceDescriptor(
@@ -260,8 +300,8 @@ _TRANSMISSIONCALL = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=301,
-  serialized_end=404,
+  serialized_start=346,
+  serialized_end=597,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetTorrent',
@@ -276,6 +316,33 @@ _TRANSMISSIONCALL = _descriptor.ServiceDescriptor(
     name='SendTorrent',
     full_name='TransmissionCall.SendTorrent',
     index=1,
+    containing_service=None,
+    input_type=_TORRENTURL,
+    output_type=_SENDTORRENT,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='RemoveTorrent',
+    full_name='TransmissionCall.RemoveTorrent',
+    index=2,
+    containing_service=None,
+    input_type=_TORRENTID,
+    output_type=_REMOVETORRENT,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetTorrentList',
+    full_name='TransmissionCall.GetTorrentList',
+    index=3,
+    containing_service=None,
+    input_type=_TORRENTID,
+    output_type=_GETTORRENT,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='SendTorrentList',
+    full_name='TransmissionCall.SendTorrentList',
+    index=4,
     containing_service=None,
     input_type=_TORRENTURL,
     output_type=_SENDTORRENT,

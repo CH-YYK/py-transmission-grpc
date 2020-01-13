@@ -5,7 +5,7 @@ import transmission_call_pb2 as pb2
 import transmission_call_pb2_grpc as pb2_grpc
 
 _host = "192.168.1.16"
-_port = 5071
+_port = 5051
 _torrent_url = "http://releases.ubuntu.com/19.10/ubuntu-19.10-desktop-amd64.iso.torrent?_ga=2.68919384.854729028.1577940666-1012110682.1574224568"
 
 
@@ -23,6 +23,7 @@ def make_parser():
     parser.add_argument("-i", "--id")
 
     return parser
+
 
 def make_TorrentID(torrent_id:int):
     """make TorrentID object"""
@@ -48,6 +49,27 @@ def transmission_send_torrent(stub: pb2_grpc.TransmissionCallStub, torrent_url: 
         make_TorrentUrl(torrent_url)
     )
     return response
+
+
+def transmission_remove_torrent(stub: pb2_grpc.TransmissionCallStub, torrent_id: int):
+    response = stub.RemoveTorrent(
+        make_TorrentID(torrent_id)
+    )
+    return response
+
+
+def transmission_get_torrent_list(stub, torrent_ids):
+    response_iterator = stub.GetTorrentList(
+        request_iterator=(make_TorrentID(i) for i in torrent_ids)
+    )
+    return response_iterator
+
+
+def transmission_send_torrent_list(stub, torrent_urls):
+    response_iterator = stub.SendTorrentList(
+        request_iterator=(make_TorrentUrl(url) for url in torrent_urls)
+    )
+    return response_iterator
 
 
 def run():

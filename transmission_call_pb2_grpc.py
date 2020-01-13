@@ -24,6 +24,21 @@ class TransmissionCallStub(object):
         request_serializer=transmission__call__pb2.TorrentUrl.SerializeToString,
         response_deserializer=transmission__call__pb2.sendTorrent.FromString,
         )
+    self.RemoveTorrent = channel.unary_unary(
+        '/TransmissionCall/RemoveTorrent',
+        request_serializer=transmission__call__pb2.TorrentId.SerializeToString,
+        response_deserializer=transmission__call__pb2.removeTorrent.FromString,
+        )
+    self.GetTorrentList = channel.stream_stream(
+        '/TransmissionCall/GetTorrentList',
+        request_serializer=transmission__call__pb2.TorrentId.SerializeToString,
+        response_deserializer=transmission__call__pb2.getTorrent.FromString,
+        )
+    self.SendTorrentList = channel.stream_stream(
+        '/TransmissionCall/SendTorrentList',
+        request_serializer=transmission__call__pb2.TorrentUrl.SerializeToString,
+        response_deserializer=transmission__call__pb2.sendTorrent.FromString,
+        )
 
 
 class TransmissionCallServicer(object):
@@ -44,6 +59,27 @@ class TransmissionCallServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def RemoveTorrent(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def GetTorrentList(self, request_iterator, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def SendTorrentList(self, request_iterator, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_TransmissionCallServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -54,6 +90,21 @@ def add_TransmissionCallServicer_to_server(servicer, server):
       ),
       'SendTorrent': grpc.unary_unary_rpc_method_handler(
           servicer.SendTorrent,
+          request_deserializer=transmission__call__pb2.TorrentUrl.FromString,
+          response_serializer=transmission__call__pb2.sendTorrent.SerializeToString,
+      ),
+      'RemoveTorrent': grpc.unary_unary_rpc_method_handler(
+          servicer.RemoveTorrent,
+          request_deserializer=transmission__call__pb2.TorrentId.FromString,
+          response_serializer=transmission__call__pb2.removeTorrent.SerializeToString,
+      ),
+      'GetTorrentList': grpc.stream_stream_rpc_method_handler(
+          servicer.GetTorrentList,
+          request_deserializer=transmission__call__pb2.TorrentId.FromString,
+          response_serializer=transmission__call__pb2.getTorrent.SerializeToString,
+      ),
+      'SendTorrentList': grpc.stream_stream_rpc_method_handler(
+          servicer.SendTorrentList,
           request_deserializer=transmission__call__pb2.TorrentUrl.FromString,
           response_serializer=transmission__call__pb2.sendTorrent.SerializeToString,
       ),

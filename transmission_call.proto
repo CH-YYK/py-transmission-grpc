@@ -3,6 +3,10 @@ syntax = "proto3";
 service TransmissionCall {
     rpc GetTorrent(TorrentId) returns (getTorrent) {}
     rpc SendTorrent(TorrentUrl) returns (sendTorrent) {}
+    rpc RemoveTorrent(TorrentId) returns (removeTorrent) {}
+
+    rpc GetTorrentList(stream TorrentId) returns (stream getTorrent) {}
+    rpc SendTorrentList(stream TorrentUrl) returns (stream sendTorrent) {}
 }
 
 // Request message to server
@@ -37,5 +41,9 @@ message getTorrent {
 }
 
 message sendTorrent {
+    Torrent torrent = 1;
+}
+
+message removeTorrent {
     Torrent torrent = 1;
 }
