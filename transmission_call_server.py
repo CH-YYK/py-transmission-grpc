@@ -10,12 +10,14 @@ transmission_host = "192.168.1.16"
 transmission_port = 9091
 _port = 5051
 
+
 def make_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument("--host")
     parser.add_argument("--port")
     parser.add_argument("--rpc_port")
     return parser.parse_args()
+
 
 class TransmissionCallServicer(pb2_grpc.TransmissionCallServicer):
     """
@@ -54,6 +56,39 @@ class TransmissionCallServicer(pb2_grpc.TransmissionCallServicer):
             torrent=torrent
         )
 
+    def RemoveTorrent(self, request, context):
+        _torrent_id = request.torrent_id
+        _torrent = self.client.get_torrent(_torrent_id)
+        self.client.remove_torrent(_torrent_id)
+
+        torrent = pb2.Torrent(
+            torrent_name = _torrent._fields['name'].value,
+            torrent_id = _torrent._fields['id'].value
+        )
+
+        return pb2.removeTorrent(
+            torrent=torrent
+        )
+
+    def GetTorrentList(self, request_iterator, context):
+        _get_torrent_ids = [request.torrent_id for request in request_iterator]
+        _get_torrents = self.client.get_torrents(_get_torrent_ids)
+        for i, _torrent in enumerate(_get_torrents):
+            yield pb2.getTorrent(
+                torrent=pb2.Torrent(
+                    torrent_name=_torrent._fields['name'].value,
+                    torrent_id=_get_torrent_ids[i]
+                    ),
+                date_added=_torrent.date_added.strftime("%Y-%m-%d, %H:%M:%S"),
+                torrent_progress=_torrent.progress,
+                torrent_status=_torrent.status
+            )
+
+    def SendTorrentList(self, request_iterator, context):
+        _send_torrent_urls = [request.torrent_url for request in request_iterator]
+        for request in request_iterator:
+            yield self.SendTorrent(request, context)
+
 
 def server():
     print("---- starting server at %s:%d ----" % ('localhost', _port))
@@ -65,6 +100,7 @@ def server():
     server.start()
     print("---- server started ----")
     server.wait_for_termination()
+
 
 if __name__ == '__main__':
     cmd_lines = make_parser()
